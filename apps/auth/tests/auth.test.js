@@ -33,7 +33,7 @@ describe('POST /users/register', () => {
   })
 
   it('should return 400 if email is invalid', async () => {
-    const requestBody = { email: 'test', name: 'test', password: '12345678', confirmPassword: '12345678'}
+    const requestBody = { email: 'test', name: 'test', password: '12345678', confirmPassword: '12345678' }
     const response = await request.post('/users/register').send(requestBody)
     expect(response.status).toBe(400)
     expect(response.body).toHaveProperty('message', 'Invalid email')
