@@ -8,7 +8,7 @@ class ValidateAuthController {
   }
 
   async execute (req, res) {
-    if(!req.headers.authorization) return res.status(401).json({ error: 'No token provided' })
+    if (!req.headers.authorization) return res.status(401).json({ error: 'No token provided' })
     const token = req.headers.authorization.split(' ')[1]
     try {
       const user = jwt.verify(token, this.secret)
