@@ -17,7 +17,7 @@ class RegisterUserUseCase {
    */
   async execute (registerUserDto) {
     /**
-     * function handleError is a util function to handle errors from async functions 
+     * function handleError is a util function to handle errors from async functions
      */
     const withErrorHandling = handleError(async () => {
       const userAlreadyExists = await this.userRepository.findByEmail(registerUserDto.email)
@@ -25,13 +25,12 @@ class RegisterUserUseCase {
         return Result.failed(new Error('Email already used'))
       }
       const id = crypto.randomUUID()
-      let user = User.create(registerUserDto.name, registerUserDto.email, registerUserDto.password, id)
+      let user = User.create(registerUserDto.name, registerUserDto.email, registerUserDto.password, registerUserDto.role, id)
       user = await this.userRepository.create(user)
-      return Result.success({ email: user.email, name: user.name, id: user.id })
+      return Result.success(user.toJson())
     })
     return withErrorHandling()
   }
- 
 }
 
 module.exports = RegisterUserUseCase
