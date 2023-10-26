@@ -20,8 +20,8 @@ class RegisterUserController {
    * @returns response object from express
    */
   async execute (request, response) {
-    let { email, name, password, confirmPassword } = request.body
-    if (!email || !name || !password || !confirmPassword) {
+    let { email, name, password, confirmPassword, role } = request.body
+    if (!email || !name || !password || !confirmPassword || !role) {
       return response.status(400).json({ message: 'Missing fields' })
     }
     if (password.length < 8) {
@@ -37,7 +37,8 @@ class RegisterUserController {
     const user = await usecase.execute({
       name,
       email,
-      password
+      password,
+      role
     })
 
     if (!user.success) {
