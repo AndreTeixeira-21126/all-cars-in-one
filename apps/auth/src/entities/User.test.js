@@ -9,4 +9,10 @@ describe('User entity', () => {
     expect(user).toHaveProperty('email', 'test@test.com')
     expect(user).toHaveProperty('password', '123456')
   })
+  it('should throw an error when name is empty', () => {
+    expect(() => User.create('', 'test@test.com', '123456', 'user-id')).toThrow(Error)
+  })
+  it('should throw an error when email is invalid', () => {
+    expect(() => User.create('John Doe', 'test', '123456', 'user-id')).toThrow(Error)
+  })
 })
