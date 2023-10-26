@@ -27,7 +27,7 @@ class User {
       throw new Error('Name is required')
     }
     if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) === false) {
-      throw new Error('Email is required')
+      throw new Error('Invalid email')
     }
     return new User(name, email, password, id)
   }
