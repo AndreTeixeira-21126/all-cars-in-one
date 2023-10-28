@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  web:
+    build:
+      context: ./apps/auth
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    env_file:
+      - ./apps/auth/.env
+      
