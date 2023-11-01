@@ -32,7 +32,7 @@ jobs:
         run: npm test
       - name: Build Image
         working-directory: ./apps/auth
-        run: docker build -t allcarsinone/auth_service:${{ github.sha }}
+        run: docker build -t allcarsinone/auth_service:${{ github.sha }} .
       - name: Push to Docker
         run: docker push allcarsinone/auth_service:${{ github.sha }}
         
