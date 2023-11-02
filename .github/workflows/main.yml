@@ -2,6 +2,7 @@ name: Authentication Test Workflow
 
 on:
   pull_request:
+    types: [opened]
     branches:
       - main
 jobs:
