@@ -1,0 +1,7 @@
+USE auth;
+
+CREATE TABLE usertype(
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL UNIQUE,
+    PRIMARY KEY (id)
+);

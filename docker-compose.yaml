@@ -20,6 +20,7 @@ services:
     - ./apps/auth/database/.env
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./apps/auth/database/migrations:/docker-entrypoint-initdb.d
 
 volumes:
   mysql_data:
