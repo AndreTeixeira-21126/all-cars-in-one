@@ -3,10 +3,10 @@ version: "3.9"
 services:
   web:
     build:
-      context: ./apps/auth
+      context: ./apps/users
       dockerfile: Dockerfile
     ports:
-      - 3000:3000
+      - 3001:3001
     env_file:
-      - ./apps/auth/.env
+      - ./apps/users/.env
       
