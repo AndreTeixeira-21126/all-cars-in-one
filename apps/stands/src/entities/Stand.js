@@ -8,7 +8,7 @@ class Stand {
      * @param {*} schedule stand schedule
      * @param {*} id id of stand, can be a integer, an uuid or a string
      */
-  constructor (name, location, phone, mobilephone, schedule, id = undefined) {
+  constructor (name, location, phone, mobilephone, id = undefined, schedule = '') {
     this.id = id
     this.name = name
     this.location = location
@@ -31,17 +31,20 @@ class Stand {
    * @param {*} id Id of Stand
    * @returns a new instance of Stand
    */
-  static create (name, location, phone, mobilephone, schedule, id = undefined) {
+  static create (name, location, phone, mobilephone, id = undefined, schedule='') {
     if (name.length === 0) {
       throw new Error('Name is required')
     }
     if (location.length === 0) {
       throw new Error('Location is required')
     }
-    if (phone.length != 9) {
+    if (phone.length !== 9) {
       throw new Error('Phone number is required')
     }
-    return new Stand(name, location, phone, mobilephone, schedule, id)
+    if (mobilephone.length !== 9) {
+      throw new Error('Mobile phone number is required')
+    }
+    return new Stand(name, location, phone, mobilephone, id, schedule)
   }
 }
 

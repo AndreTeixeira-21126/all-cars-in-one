@@ -24,7 +24,7 @@ class InMemoryStandRepository {
    * @returns stand or undefined
    */
   async findByName (name) {
-    return this.stands.find((name) => stand.name === name)
+    return this.stands.find((stand) => stand.name === name)
   }
 }
 

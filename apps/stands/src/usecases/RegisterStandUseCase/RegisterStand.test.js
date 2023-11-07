@@ -1,4 +1,4 @@
-const RegisterStandUseCase = require('./RegisterUser.usecase')
+const RegisterStandUseCase = require('./RegisterStand.usecase')
 const InMemoryStandRepository = require('../../repositories/InMemoryStandRepository')
 const Stand = require('../../entities/Stand')
 
@@ -75,8 +75,9 @@ describe('RegisterStandUseCase', () => {
     })
 
     expect(result.success).toBe(false)
-    expect(result.error.message).toBe('Phone is required')
+    expect(result.error.message).toBe('Phone number is required')
   })
+
   it('should return a result.failed if mobile phone validation fails', async () => {
     const { sut } = makeSut()
     const result = await sut.execute({
@@ -87,6 +88,6 @@ describe('RegisterStandUseCase', () => {
     })
 
     expect(result.success).toBe(false)
-    expect(result.error.message).toBe('Mobile phone is required')
+    expect(result.error.message).toBe('Mobile phone number is required')
   })
 })

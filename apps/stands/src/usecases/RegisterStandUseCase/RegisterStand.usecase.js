@@ -1,10 +1,11 @@
 const Stand = require('../../entities/Stand')
 const crypto = require('crypto') // This is a nodejs module, you can use uuid or other lib
 const { Result, handleError } = require('../../util/Result')
+const { Console } = require('console')
 
 class RegisterStandUseCase {
   /**
-     * @description Constructor of RegisterUserUseCase
+     * @description Constructor of RegisterStandUseCase
      * @param {*} standRepository an StandRepository, it can be a in-memory or an mysql, postgres, etc
      */
   constructor (standRepository) {
@@ -25,6 +26,7 @@ class RegisterStandUseCase {
         return Result.failed(new Error('Stand name already used'))
       }
       const id = crypto.randomUUID()
+      console.log(registerStandDto)
       let stand = Stand.create(registerStandDto.name, registerStandDto.location, registerStandDto.phone, registerStandDto.mobilephone, id)
       stand = await this.standRepository.create(stand)
       return Result.success(stand.toJson())

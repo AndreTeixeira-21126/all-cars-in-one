@@ -21,7 +21,7 @@ class RegisterStandController {
    */
   async execute (request, response) {
     let { name, location, phone, mobilephone, schedule } = request.body
-    if (!name || !location || !phone || !mobilephone || !schedule) {
+    if (!name || !location || !phone || !mobilephone) {
       return response.status(400).json({ message: 'Missing fields' })
     }
     if (name.length < 5) {
@@ -35,6 +35,7 @@ class RegisterStandController {
     const stand = await usecase.execute({
       name,
       location,
+      phone,
       mobilephone,
       schedule
     })
@@ -43,10 +44,11 @@ class RegisterStandController {
       if (stand.error.message === 'Stand name already used.' || stand.error.message === 'Location is required' || stand.error.message === 'Mobile phone is required') {
         return response.status(400).json({ message: stand.error.message })
       } else {
+        console.log(stand.error)
         return response.status(500).json({ message: 'Internal server error' })
       }
     }
-    return response.status(201).json(user.data)
+    return response.status(201).json(stand.data)
   }
 }
 
