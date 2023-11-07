@@ -1,9 +1,9 @@
 const RegisterStandUseCase = require('./RegisterUser.usecase')
-const InMemoryUserRepository = require('../../repositories/InMemoryUserRepository')
+const InMemoryStandRepository = require('../../repositories/InMemoryStandRepository')
 const Stand = require('../../entities/Stand')
 
 const makeSut = () => {
-  const standRepository = new InMemoryUserRepository()
+  const standRepository = new InMemoryStandRepository()
   const sut = new RegisterStandUseCase(standRepository)
   return { sut, standRepository }
 }
