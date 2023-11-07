@@ -20,8 +20,8 @@ class RegisterUserController {
    * @returns response object from express
    */
   async execute (request, response) {
-    let { email, name, password, confirmPassword, role } = request.body
-    if (!email || !name || !password || !confirmPassword || !role) {
+    let { email, name, password, confirmPassword, roleId } = request.body
+    if (!email || !name || !password || !confirmPassword || !roleId) {
       return response.status(400).json({ message: 'Missing fields' })
     }
     if (password.length < 8) {
@@ -38,13 +38,14 @@ class RegisterUserController {
       name,
       email,
       password,
-      role
+      roleId
     })
 
     if (!user.success) {
       if (user.error.message === 'Email already used' || user.error.message === 'Name is required' || user.error.message === 'Invalid email') {
         return response.status(400).json({ message: user.error.message })
       } else {
+        console.log(user.error)
         return response.status(500).json({ message: 'Internal server error' })
       }
     }

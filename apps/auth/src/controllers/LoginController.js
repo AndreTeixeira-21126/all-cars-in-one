@@ -16,6 +16,7 @@ class LoginController {
         return res.status(400).json({ error: result.error.message })
       }
 
+      
       return res.status(500).json({ error: result.error.message })
     }
     const token = jwt.sign(result.data, this.secret, { expiresIn: '2h' })

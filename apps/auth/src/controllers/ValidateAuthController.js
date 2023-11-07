@@ -26,6 +26,7 @@ class ValidateAuthController {
       const validateAuthUseCase = new ValidateAuthUseCase(this.userRepository)
       const result = await validateAuthUseCase.execute(user)
       if (!result.success) {
+        console.log(result.error)
         return res.status(500).json({ error: result.error.message })
       }
       return res.status(200).json(result.data)

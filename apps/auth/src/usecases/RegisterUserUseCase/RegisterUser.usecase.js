@@ -24,9 +24,8 @@ class RegisterUserUseCase {
       if (userAlreadyExists) {
         return Result.failed(new Error('Email already used'))
       }
-      const id = crypto.randomUUID()
-      let user = User.create(registerUserDto.name, registerUserDto.email, registerUserDto.password, registerUserDto.role, id)
-      user = await this.userRepository.create(user)
+
+      const user = await this.userRepository.create(registerUserDto)
       return Result.success(user.toJson())
     })
     return withErrorHandling()

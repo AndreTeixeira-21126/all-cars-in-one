@@ -3,7 +3,10 @@
  * @see https://martinfowler.com/bliki/InMemoryTestDatabase.html
  */
 
+const User = require('../entities/User')
+
 class InMemoryUserRepository {
+  static id = 1
   constructor () {
     this.users = []
   }
@@ -14,8 +17,12 @@ class InMemoryUserRepository {
    * @returns the added object
    */
   async create (user) {
-    this.users.push(user)
-    return user
+    const roles = { 1: 'admin', 2: 'customer', 3: 'manager' }
+    const id = InMemoryUserRepository.id++
+    const role = roles[user.roleId]
+    const newUser = User.create(user.name, user.email, user.password, role, id)
+    this.users.push(newUser)
+    return newUser
   }
 
   /**
