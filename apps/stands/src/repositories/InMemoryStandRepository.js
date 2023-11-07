@@ -3,7 +3,7 @@
  * @see https://martinfowler.com/bliki/InMemoryTestDatabase.html
  */
 
-class InMemoryUserRepository {
+class InMemoryStandRepository {
   constructor () {
     this.stands = []
   }
@@ -28,4 +28,4 @@ class InMemoryUserRepository {
   }
 }
 
-module.exports = InMemoryUserRepository
+module.exports = InMemoryStandRepository

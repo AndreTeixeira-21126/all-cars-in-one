@@ -1,4 +1,4 @@
-class User {
+class Stand {
   /**
      * @description Constructor of stand entity
      * @param {*} name stand name
@@ -45,4 +45,4 @@ class User {
   }
 }
 
-module.exports = User
+module.exports = Stand

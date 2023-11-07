@@ -1,49 +1,47 @@
-const RegisterUserUseCase = require('../usecases/RegisterUserUseCase/RegisterUser.usecase')
+const RegisterStandUseCase = require('../usecases/RegisterStandUseCase/RegisterStand.usecase')
 const bcrypt = require('bcrypt') // ? - tem de estar aqui ? TIP: perguntar ao professor de arquitetura
 
 // Acoplado com o express. O req e o res têm de estar aqui ou não vale a pena complicar ?- perguntar ao professor de arquitetura
 
 /**
- * @class RegisterUserController
- * @description Controller to register a new user
+ * @class RegisterStandController
+ * @description Controller to register a new stand
  */
 
-class RegisterUserController {
-  constructor (userRepository) {
-    this.userRepository = userRepository
+class RegisterStandController {
+  constructor (standRepository) {
+    this.standRepository = standRepository
   }
 
   /**
-   * @description Method to execute http request for register user
+   * @description Method to execute http request for register stand
    * @param {*} request request object from express
    * @param {*} response response object from express
    * @returns response object from express
    */
   async execute (request, response) {
-    let { email, name, password, confirmPassword, role } = request.body
-    if (!email || !name || !password || !confirmPassword || !role) {
+    let { name, location, phone, mobilephone, schedule } = request.body
+    if (!name || !location || !phone || !mobilephone || !schedule) {
       return response.status(400).json({ message: 'Missing fields' })
     }
-    if (password.length < 8) {
-      return response.status(400).json({ message: 'Password must be at least 8 characters' })
+    if (name.length < 5) {
+      return response.status(400).json({ message: 'Name must be at least 5 characters' })
     }
-    if (password !== confirmPassword) {
-      return response.status(400).json({ message: 'Passwords don t match' })
+    if (location.length < 5) {
+      return response.status(400).json({ message: 'Name must be at least 5 characters' })
     }
-
-    const salt = bcrypt.genSaltSync(10)
-    password = bcrypt.hashSync(password, salt)
-    const usecase = new RegisterUserUseCase(this.userRepository)
-    const user = await usecase.execute({
+    
+    const usecase = new RegisterStandUseCase(this.standRepository)
+    const stand = await usecase.execute({
       name,
-      email,
-      password,
-      role
+      location,
+      mobilephone,
+      schedule
     })
 
-    if (!user.success) {
-      if (user.error.message === 'Email already used' || user.error.message === 'Name is required' || user.error.message === 'Invalid email') {
-        return response.status(400).json({ message: user.error.message })
+    if (!stand.success) {
+      if (stand.error.message === 'Stand name already used.' || stand.error.message === 'Location is required' || stand.error.message === 'Mobile phone is required') {
+        return response.status(400).json({ message: stand.error.message })
       } else {
         return response.status(500).json({ message: 'Internal server error' })
       }
@@ -52,4 +50,4 @@ class RegisterUserController {
   }
 }
 
-module.exports = RegisterUserController
+module.exports = RegisterStandController

@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-router.post('/stand', async (req, res) => {
+router.post('/stands', async (req, res) => {
   const controller = req.app.get('registerStandController')
   controller.execute(req, res)
 })
